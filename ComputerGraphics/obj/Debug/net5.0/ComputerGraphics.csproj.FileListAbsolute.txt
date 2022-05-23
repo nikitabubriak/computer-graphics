@@ -1,0 +1,16 @@
+E:\KPI\CG\computer-graphics\ComputerGraphics\bin\Debug\net5.0\ComputerGraphics.exe
+E:\KPI\CG\computer-graphics\ComputerGraphics\bin\Debug\net5.0\ComputerGraphics.deps.json
+E:\KPI\CG\computer-graphics\ComputerGraphics\bin\Debug\net5.0\ComputerGraphics.runtimeconfig.json
+E:\KPI\CG\computer-graphics\ComputerGraphics\bin\Debug\net5.0\ComputerGraphics.runtimeconfig.dev.json
+E:\KPI\CG\computer-graphics\ComputerGraphics\bin\Debug\net5.0\ComputerGraphics.dll
+E:\KPI\CG\computer-graphics\ComputerGraphics\bin\Debug\net5.0\ref\ComputerGraphics.dll
+E:\KPI\CG\computer-graphics\ComputerGraphics\bin\Debug\net5.0\ComputerGraphics.pdb
+E:\KPI\CG\computer-graphics\ComputerGraphics\obj\Debug\net5.0\ComputerGraphics.csproj.AssemblyReference.cache
+E:\KPI\CG\computer-graphics\ComputerGraphics\obj\Debug\net5.0\ComputerGraphics.GeneratedMSBuildEditorConfig.editorconfig
+E:\KPI\CG\computer-graphics\ComputerGraphics\obj\Debug\net5.0\ComputerGraphics.AssemblyInfoInputs.cache
+E:\KPI\CG\computer-graphics\ComputerGraphics\obj\Debug\net5.0\ComputerGraphics.AssemblyInfo.cs
+E:\KPI\CG\computer-graphics\ComputerGraphics\obj\Debug\net5.0\ComputerGraphics.csproj.CoreCompileInputs.cache
+E:\KPI\CG\computer-graphics\ComputerGraphics\obj\Debug\net5.0\ComputerGraphics.dll
+E:\KPI\CG\computer-graphics\ComputerGraphics\obj\Debug\net5.0\ref\ComputerGraphics.dll
+E:\KPI\CG\computer-graphics\ComputerGraphics\obj\Debug\net5.0\ComputerGraphics.pdb
+E:\KPI\CG\computer-graphics\ComputerGraphics\obj\Debug\net5.0\ComputerGraphics.genruntimeconfig.cache
