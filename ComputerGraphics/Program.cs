@@ -6,19 +6,28 @@ namespace ComputerGraphics
     {
         static void Main(string[] args)
         {
+            //left-handed coordinate system
+
             Camera camera = new Camera(
                 position:   new Point(10, 10, -20), 
                 direction:  new Vector(0, 0, 1), 
                 screenWidth:  20, 
                 screenHeight: 20);
 
-            Scene scene = new Scene(camera);
+            Vector light = new Vector(-10, -10, 10);
 
-            Plane plane = new Plane(
-                center: new Point(10, 10, 0), 
-                normal: new Vector(1, 1, -0.2f));
+            Scene scene = new Scene(camera, light);
 
-            scene.AddShape(plane);
+            //Plane plane = new Plane(
+            //    center: new Point(10, 10, 0),
+            //    normal: new Vector(1, 1, -0.2f));
+            //scene.AddShape(plane);
+
+            Sphere sphere = new Sphere(
+                center: new Point(10, 10, 0),
+                radius: 4);
+            scene.AddShape(sphere);
+
             scene.Render();
 
         }
