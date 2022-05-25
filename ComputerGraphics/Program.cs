@@ -33,8 +33,16 @@ namespace ComputerGraphics
             //    radius: 4);
             //scene.AddShape(sphereJr);
 
-            scene.Render();
+            scene.Render(); //output the image to console
             //scene.RenderClosest();
+
+
+
+            string outputPath = "rendered.ppm";
+            ScenePPM ppm = new ScenePPM(outputPath, camera, light);
+
+            ppm.AddShape(sphere);
+            ppm.Render(); //output the image to .ppm file
 
         }
     }

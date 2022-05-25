@@ -4,7 +4,7 @@ using ComputerGraphics.Shapes;
 
 namespace ComputerGraphics
 {
-    public class Scene
+    public class Scene : IRenderer
     {
         public List<IShape> Shapes { get; }
         public Camera Camera { get; }
@@ -47,6 +47,7 @@ namespace ComputerGraphics
             }
         }
 
+        //Output image to console
         public void Render()
         {
             if (Shapes.Count == 0) return;
@@ -73,6 +74,7 @@ namespace ComputerGraphics
             }
         }
 
+        //Output closest shape image to console
         public IShape RenderClosest()
         {
             if (Shapes.Count == 0) return null;
@@ -117,7 +119,7 @@ namespace ComputerGraphics
                     if (closestShape != null)
                     {
                         Point intersection = closestShape.CheckIntersection(rayOrigin, rayDirection);
-                        SetScreenPointSymbol(ref symbol, closestShape, intersection);
+                        SetScreenPointSymbol(ref symbol, closestShape, intersection); // return lightLevel to [x,y] //////////
                     }
                     else break;
                     Console.Write(symbol); //print symbol for the current screenPoint
