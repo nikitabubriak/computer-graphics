@@ -33,6 +33,13 @@ namespace ComputerGraphics
             //    radius: 4);
             //scene.AddShape(sphereJr);
 
+            Triangle triangle = new Triangle(
+                a: new Point(2, 5, -1),
+                b: new Point(7, 16, -3),
+                c: new Point(12, 5, -7));
+            scene.AddShape(triangle);
+
+
             scene.Render(); //output the image to console
             //scene.RenderClosest();
 
@@ -41,7 +48,8 @@ namespace ComputerGraphics
             string outputPath = "rendered.ppm";
             ScenePPM ppm = new ScenePPM(outputPath, camera, light);
 
-            ppm.AddShape(sphere);
+            ppm.AddShape(triangle);
+            //ppm.AddShape(sphere);
             ppm.Render(); //output the image to .ppm file
 
         }

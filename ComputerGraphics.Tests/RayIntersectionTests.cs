@@ -5,17 +5,13 @@ namespace ComputerGraphics.Tests
 {
     public class Tests
     {
-        //TODO for lab2:
-
-        //Triangle with intersection
-        //Triangle without intersection
-
         Point rayOrigin; 
         Point screenPoint;
         Point intersection; 
         
         Plane plane;
         Sphere sphere;
+        Triangle triangle;
 
         Camera camera;
         Scene scene;
@@ -84,6 +80,36 @@ namespace ComputerGraphics.Tests
                 radius: 4);
 
             intersection = sphere.CheckIntersection(rayOrigin, 
+                (screenPoint - rayOrigin).Normalized());
+
+            Assert.IsNull(intersection);
+        }
+
+        [Test]
+        public void TriangleIntersectedByRay()
+        {
+            screenPoint = new Point(8, 8, 0);
+            triangle = new Triangle(
+                a: new Point(2, 5, -1),
+                b: new Point(7, 16, -3),
+                c: new Point(12, 5, -7));
+
+            intersection = triangle.CheckIntersection(rayOrigin,
+                (screenPoint - rayOrigin).Normalized());
+
+            Assert.IsNotNull(intersection);
+        }
+
+        [Test]
+        public void TriangleNotIntersectedByRay()
+        {
+            screenPoint = new Point(15, 15, 0);
+            triangle = new Triangle(
+                a: new Point(2, 5, -1),
+                b: new Point(7, 16, -3),
+                c: new Point(12, 5, -7));
+
+            intersection = triangle.CheckIntersection(rayOrigin,
                 (screenPoint - rayOrigin).Normalized());
 
             Assert.IsNull(intersection);

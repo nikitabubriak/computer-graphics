@@ -119,7 +119,7 @@ namespace ComputerGraphics
                     if (closestShape != null)
                     {
                         Point intersection = closestShape.CheckIntersection(rayOrigin, rayDirection);
-                        SetScreenPointSymbol(ref symbol, closestShape, intersection); // return lightLevel to [x,y] //////////
+                        SetScreenPointSymbol(ref symbol, closestShape, intersection);
                     }
                     else break;
                     Console.Write(symbol); //print symbol for the current screenPoint
