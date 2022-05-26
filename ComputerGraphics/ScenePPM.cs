@@ -130,13 +130,28 @@ namespace ComputerGraphics
                             }
                         }
                     }
-                    if (closestShape != null && closestIntersection != null)
-                        ScreenLightLevelMatrix[x, y - 1] = 
-                            GetScreenPointLightLevel(closestShape, closestIntersection);
-                    else
-                        ScreenLightLevelMatrix[x, y - 1] = 0;
 
-                    //Shapes.Remove(closestShape);
+                    if (closestShape != null && closestIntersection != null)
+                    {
+                        //check point for shadow
+                        Point ShadowIntersection = null;
+                        foreach (IShape shape in Shapes)
+                        {
+                            if (shape == closestShape) continue;
+                            Point ShadowRayOrigin = closestIntersection;
+                            Vector ShadowRayDirection = Light * -1;
+
+                            ShadowIntersection = shape.CheckIntersection(ShadowRayOrigin, ShadowRayDirection);
+                        }
+
+                        if (ShadowIntersection != null)
+                        {
+                            ScreenLightLevelMatrix[x, y - 1] = 0.1f;
+                        }
+                        else ScreenLightLevelMatrix[x, y - 1] =
+                           GetScreenPointLightLevel(closestShape, closestIntersection);
+                    }
+                    else ScreenLightLevelMatrix[x, y - 1] = 0;
                 }
             }
         }
@@ -199,30 +214,30 @@ namespace ComputerGraphics
             Console.WriteLine($"Successfully read file {InputPath}");
         }
 
-        //public void RenderFromLightLevelMatrixToConsole()
-        //{
-        //    SetScreenLightLevelMatrix();
+        public void RenderFromLightLevelMatrixToConsole()
+        {
+            SetScreenLightLevelMatrix();
 
-        //    for (int y = Camera.ScreenHeight; y > 0; y--)
-        //    {
-        //        for (int x = 0; x < Camera.ScreenWidth; x++)
-        //        {
-        //            char symbol = ' ';
-        //            float lightLevel = ScreenLightLevelMatrix[x, y - 1];
-        //            switch (lightLevel)
-        //            {
-        //                case <= 0: symbol = ' '; break;
-        //                case < 0.2f: symbol = '.'; break;
-        //                case < 0.5f: symbol = '*'; break;
-        //                case < 0.8f: symbol = 'O'; break;
-        //                case >= 0.8f: symbol = '#'; break;
-        //                default: symbol = ' '; break;
-        //            }
-        //            Console.Write(symbol);
-        //            Console.Write(symbol);
-        //        }
-        //        Console.WriteLine();
-        //    }
-        //}
+            for (int y = Camera.ScreenHeight; y > 0; y--)
+            {
+                for (int x = 0; x < Camera.ScreenWidth; x++)
+                {
+                    char symbol = ' ';
+                    float lightLevel = ScreenLightLevelMatrix[x, y - 1];
+                    switch (lightLevel)
+                    {
+                        case <= 0: symbol = ' '; break;
+                        case < 0.2f: symbol = '.'; break;
+                        case < 0.5f: symbol = '*'; break;
+                        case < 0.8f: symbol = 'O'; break;
+                        case >= 0.8f: symbol = '#'; break;
+                        default: symbol = ' '; break;
+                    }
+                    Console.Write(symbol);
+                    Console.Write(symbol);
+                }
+                Console.WriteLine();
+            }
+        }
     }
 }
