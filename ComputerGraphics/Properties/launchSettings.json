@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "ComputerGraphics": {
+      "commandName": "Project",
+      "commandLineArgs": "--source=cow.obj --output=rendered.ppm"
+    }
+  }
+}

@@ -2,6 +2,8 @@
 using System.IO;
 using System.Collections.Generic;
 using ComputerGraphics.Shapes;
+using System.Globalization;
+using System.Diagnostics;
 
 namespace ComputerGraphics
 {
@@ -11,9 +13,10 @@ namespace ComputerGraphics
         public Camera Camera { get; }
         public Vector Light { get; }
         public float[,] ScreenLightLevelMatrix { get; }
+        public string InputPath { get; }
         public string OutputPath { get; }
 
-        public ScenePPM(string outputPath, Camera camera, Vector light = null)
+        public ScenePPM(string inputPath, string outputPath, Camera camera, Vector light = null)
         {
             Shapes = new List<IShape>();
             Camera = camera;
@@ -21,6 +24,7 @@ namespace ComputerGraphics
                 Light = light.Normalized() * -1;
 
             ScreenLightLevelMatrix = new float[Camera.ScreenWidth, Camera.ScreenHeight];
+            InputPath = inputPath;
             OutputPath = outputPath;
         }
 
@@ -46,8 +50,17 @@ namespace ComputerGraphics
         //Output image to .ppm file (Portable PixMap format) 
         public void Render()
         {
+            Console.WriteLine("Creating Screen LightLevel Matrix...");
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+
             SetScreenLightLevelMatrix();
 
+            stopwatch.Stop();
+            double time = stopwatch.Elapsed.TotalSeconds;
+            Console.WriteLine($"Successfully created Screen LightLevel Matrix in {time} seconds");
+
+            Console.WriteLine($"Creating file {OutputPath} ...");
             StreamWriter output = new StreamWriter(OutputPath);
 
             //file header
@@ -82,8 +95,6 @@ namespace ComputerGraphics
             output.Close();
             Console.WriteLine($"Successfully created file {OutputPath}");
         }
-
-        
 
         public void SetScreenLightLevelMatrix()
         {
@@ -128,6 +139,64 @@ namespace ComputerGraphics
                     //Shapes.Remove(closestShape);
                 }
             }
+        }
+
+        public void ReadObj()
+        {
+            StreamReader input = new StreamReader(InputPath);
+            NumberFormatInfo format = CultureInfo.InvariantCulture.NumberFormat;
+
+            //triangle vertices
+            List<Point> v = new List<Point>();
+            
+            string line;
+
+            while ((line = input.ReadLine()) != null)
+            {
+                if (line == "")
+                    continue;
+
+                string[] parts = line.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+
+                switch (parts[0])
+                {
+                    case "#":
+                        break;
+                    case "g":
+                        break;
+                    case "v":
+                        {
+                            float x = float.Parse(parts[1], format);
+                            float y = float.Parse(parts[2], format);
+                            float z = float.Parse(parts[3], format);
+
+                            v.Add(new Point(x, y, z));
+                            break;
+                        }
+                    case "vt":
+                        break;
+                    case "vn":
+                        break;
+                    case "f":
+                        {
+                            Point[] abc = new Point[3];
+
+                            for (int i = 1; i < parts.Length; i++)
+                            {
+                                string[] indexes = parts[i].Split("/");
+                                abc[i - 1] = v[int.Parse(indexes[0]) - 1];
+                            }
+
+                            AddShape(new Triangle(abc[0], abc[1], abc[2]));
+                            break;
+                        }
+                    default: 
+                        break;
+                }
+            }
+
+            input.Close();
+            Console.WriteLine($"Successfully read file {InputPath}");
         }
 
         //public void RenderFromLightLevelMatrixToConsole()

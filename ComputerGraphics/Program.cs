@@ -44,12 +44,21 @@ namespace ComputerGraphics
             //scene.RenderClosest();
 
 
+            string inputPath = args[0].Substring(9);  //--source=cow.obj
+            string outputPath = args[1].Substring(9); //--output=rendered.ppm
 
-            string outputPath = "rendered.ppm";
-            ScenePPM ppm = new ScenePPM(outputPath, camera, light);
+            camera = new Camera(
+                position: new Point(0, 0, -1000),
+                direction: new Vector(0, 0, 1),
+                screenWidth: 1000,
+                screenHeight: 1000);
 
-            ppm.AddShape(triangle);
+            ScenePPM ppm = new ScenePPM(inputPath, outputPath, camera, light);
+
+            //ppm.AddShape(triangle);
             //ppm.AddShape(sphere);
+
+            ppm.ReadObj(); //input triangles from .obj file to the shape list
             ppm.Render(); //output the image to .ppm file
 
         }
