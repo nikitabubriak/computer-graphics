@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Numerics;
 
 namespace ComputerGraphics.Shapes
 {
@@ -8,24 +9,11 @@ namespace ComputerGraphics.Shapes
         public Point B { get; }
         public Point C { get; }
 
-        public Vector ANormal { get; }
-        public Vector BNormal { get; }
-        public Vector CNormal { get; }
-
         public Triangle(Point a, Point b, Point c)
         {
             A = a;
             B = b;
             C = c;
-        }
-
-        public Triangle(
-            Point a, Point b, Point c, 
-            Vector aN, Vector bN, Vector cN): this(a, b, c)
-        {
-            ANormal = aN;
-            BNormal = bN;
-            CNormal = cN;
         }
 
         public Point CheckIntersection(Point rayOrigin, Vector rayDirection)
@@ -83,6 +71,15 @@ namespace ComputerGraphics.Shapes
             Vector edge2 = C - A;
             Vector normal = Vector.Cross(edge1, edge2).Normalized();
             return normal;
+        }
+
+        public IShape Transform(Matrix4x4 matrix)
+        {
+            Point a = A.Transform(matrix);
+            Point b = B.Transform(matrix);
+            Point c = C.Transform(matrix);
+
+            return new Triangle(a, b, c);
         }
     }
 }

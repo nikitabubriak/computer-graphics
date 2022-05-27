@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Numerics;
 
 namespace ComputerGraphics
 {
@@ -58,6 +59,14 @@ namespace ComputerGraphics
         public Vector Normalized()
         {
             return new Vector(X / Magnitude, Y / Magnitude, Z / Magnitude);
+        }
+
+        public Vector Transform(Matrix4x4 matrix)
+        {
+            Vector4 oldT = new Vector4(X, Y, Z, 1f);
+            Vector4 newT = TransformationMatrix.MultiplyByVector(matrix, oldT);
+
+            return new Vector(newT.X / newT.W, newT.Y / newT.W, newT.Z / newT.W);
         }
     }
 }

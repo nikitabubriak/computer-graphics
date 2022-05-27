@@ -1,4 +1,4 @@
-﻿
+﻿using System.Numerics;
 
 namespace ComputerGraphics
 {
@@ -25,6 +25,14 @@ namespace ComputerGraphics
         public static Vector operator -(Point a, Point b)
         {
             return new Vector(a.X - b.X, a.Y - b.Y, a.Z - b.Z);
+        }
+
+        public Point Transform(Matrix4x4 matrix)
+        {
+            Vector4 oldT = new Vector4(X, Y, Z, 1f);
+            Vector4 newT = TransformationMatrix.MultiplyByVector(matrix, oldT);
+
+            return new Point(newT.X / newT.W, newT.Y / newT.W, newT.Z / newT.W);
         }
     }
 }

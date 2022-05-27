@@ -49,5 +49,10 @@ namespace ComputerGraphics.Shapes
         {
             return (intersection - Center).Normalized();
         }
+
+        public IShape Transform(System.Numerics.Matrix4x4 matrix)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

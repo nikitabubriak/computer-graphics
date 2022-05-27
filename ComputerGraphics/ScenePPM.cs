@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using ComputerGraphics.Shapes;
 using System.Globalization;
 using System.Diagnostics;
+using System.Numerics;
 
 namespace ComputerGraphics
 {
@@ -135,14 +136,14 @@ namespace ComputerGraphics
                     {
                         //check point for shadow
                         Point ShadowIntersection = null;
-                        foreach (IShape shape in Shapes)
-                        {
-                            if (shape == closestShape) continue;
-                            Point ShadowRayOrigin = closestIntersection;
-                            Vector ShadowRayDirection = Light * -1;
+                        //foreach (IShape shape in Shapes)
+                        //{
+                        //    if (shape == closestShape) continue;
+                        //    Point ShadowRayOrigin = closestIntersection;
+                        //    Vector ShadowRayDirection = Light * -1;
 
-                            ShadowIntersection = shape.CheckIntersection(ShadowRayOrigin, ShadowRayDirection);
-                        }
+                        //    ShadowIntersection = shape.CheckIntersection(ShadowRayOrigin, ShadowRayDirection);
+                        //}
 
                         if (ShadowIntersection != null)
                         {
@@ -238,6 +239,18 @@ namespace ComputerGraphics
                 }
                 Console.WriteLine();
             }
+        }
+
+        public void TransformShapes(Matrix4x4 matrix)
+        {
+            Console.WriteLine("Transforming shapes...");
+
+            for (int i = 0; i < Shapes.Count; i++)
+            {
+                Shapes[i] = Shapes[i].Transform(matrix);
+            }
+
+            Console.WriteLine($"Successfully transformed {Shapes.Count} shapes");
         }
     }
 }
